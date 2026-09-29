@@ -18,13 +18,16 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
 
@@ -50,20 +53,34 @@ function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="logo">EMS</div>
 
-        <h1>College Events</h1>
+        {/* EventSphere Branding */}
+        <div className="auth-brand">
+          <div className="auth-brand-icon">🎓</div>
+
+          <div className="auth-brand-text">
+            <strong>EventSphere</strong>
+            <span>College Event Management</span>
+          </div>
+        </div>
+
+        <h1>Welcome Back 👋</h1>
+
         <p className="subtitle">
-          Event Management System
+          Login to discover and manage college events.
         </p>
 
         <div className="welcome">
-          <h2>Welcome Back 👋</h2>
-          <p>Login to manage and register for college events.</p>
+          <h2>Let's get started!</h2>
+          <p>
+            Access your dashboard and stay connected with
+            upcoming college events.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <label>Email Address</label>
+
           <input
             type="email"
             name="email"
@@ -74,6 +91,7 @@ function Login() {
           />
 
           <label>Password</label>
+
           <input
             type="password"
             name="password"
@@ -84,6 +102,7 @@ function Login() {
           />
 
           <label>Login As</label>
+
           <select
             name="role"
             value={formData.role}
@@ -94,7 +113,7 @@ function Login() {
           </select>
 
           <button type="submit" className="primary-btn">
-            Login
+            Login to EventSphere →
           </button>
         </form>
 

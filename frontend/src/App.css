@@ -1,262 +1,894 @@
+/* =========================================================
+   COLLEGE EVENT MANAGEMENT SYSTEM
+   Colorful Modern College Fest UI
+   ========================================================= */
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-  color: #1e293b;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f7f8ff;
+  color: #20243a;
 }
+
+/* =========================================================
+   AUTH PAGES
+   ========================================================= */
 
 .auth-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 20%, #ffd6e7 0, transparent 28%),
+    radial-gradient(circle at 90% 15%, #d7d4ff 0, transparent 30%),
+    radial-gradient(circle at 80% 90%, #c9f7ef 0, transparent 30%),
+    linear-gradient(135deg, #fff8fc, #f3f4ff);
+}
+
+/* Animated background circles */
+
+.auth-page::before,
+.auth-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: floatShape 7s ease-in-out infinite;
+}
+
+.auth-page::before {
+  width: 230px;
+  height: 230px;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+  opacity: 0.15;
+  top: -70px;
+  left: -60px;
+}
+
+.auth-page::after {
+  width: 260px;
+  height: 260px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  opacity: 0.13;
+  bottom: -90px;
+  right: -70px;
+  animation-delay: 2s;
+}
+
+@keyframes floatShape {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(20px, -20px) scale(1.08);
+  }
 }
 
 .auth-card {
-  width: 420px;
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 460px;
+  padding: 38px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 70px rgba(71, 55, 140, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  position: relative;
+  z-index: 2;
+  animation: cardAppear 0.7s ease;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 15px;
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #4f46e5;
+  margin: 0 auto 18px;
+  font-size: 21px;
+  font-weight: 800;
   color: white;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 16px;
+  background: linear-gradient(135deg, #ff4f81, #7c4dff);
+  box-shadow: 0 12px 25px rgba(124, 77, 255, 0.3);
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .auth-card h1 {
   text-align: center;
-  margin: 5px 0;
-  font-size: 28px;
+  font-size: 30px;
+  margin-bottom: 7px;
+  color: #24243d;
 }
 
 .subtitle {
   text-align: center;
-  color: #64748b;
-  margin-bottom: 30px;
+  color: #777995;
+  margin-bottom: 26px;
+}
+
+.welcome {
+  padding: 17px;
+  margin-bottom: 23px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #fff0f6, #f0edff);
 }
 
 .welcome h2 {
+  font-size: 18px;
   margin-bottom: 5px;
 }
 
 .welcome p {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 25px;
+  color: #777995;
+  font-size: 13px;
 }
 
-form {
+.auth-card form {
   display: flex;
   flex-direction: column;
 }
 
-label {
-  margin-bottom: 7px;
-  font-size: 14px;
-  font-weight: 600;
+.auth-card label {
+  margin: 12px 0 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4a4b68;
 }
 
-input,
-select {
+.auth-card input,
+.auth-card select {
   width: 100%;
-  padding: 13px;
-  margin-bottom: 18px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 14px;
+  padding: 13px 14px;
+  border: 1px solid #e1e1ef;
+  border-radius: 11px;
   outline: none;
+  background: #fafaff;
+  color: #30314a;
+  transition: 0.25s;
 }
 
-input:focus,
-select:focus {
-  border-color: #4f46e5;
+.auth-card input:focus,
+.auth-card select:focus {
+  border-color: #7c4dff;
+  box-shadow: 0 0 0 4px rgba(124, 77, 255, 0.09);
+  background: white;
 }
 
 .primary-btn {
+  width: 100%;
   border: none;
-  padding: 13px;
-  border-radius: 10px;
-  background: #4f46e5;
+  border-radius: 11px;
+  padding: 13px 18px;
+  margin-top: 18px;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 5px;
+  background: linear-gradient(135deg, #ff4f81, #7c4dff);
+  box-shadow: 0 9px 20px rgba(124, 77, 255, 0.2);
+  transition: 0.25s ease;
 }
 
 .primary-btn:hover {
-  background: #4338ca;
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(124, 77, 255, 0.28);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.primary-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
 }
 
 .register-text {
   text-align: center;
-  margin-top: 25px;
-  color: #64748b;
-  font-size: 14px;
+  margin-top: 22px;
+  font-size: 13px;
+  color: #777995;
 }
 
 .register-text a {
-  color: #4f46e5;
-  font-weight: 600;
+  color: #7c4dff;
+  font-weight: 700;
   text-decoration: none;
 }
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
 .dashboard-page {
   min-height: 100vh;
-  padding: 40px;
+  padding: 35px 6%;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 0% 0%, #ffe0ed 0, transparent 25%),
+    radial-gradient(circle at 100% 10%, #ddd9ff 0, transparent 25%),
+    radial-gradient(circle at 90% 100%, #d8fff6 0, transparent 25%),
+    #f7f8ff;
+}
+
+.dashboard-page::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #ff5c93;
+  opacity: 0.06;
+  top: 20%;
+  left: -150px;
+  animation: dashboardFloat 9s ease-in-out infinite;
+}
+
+@keyframes dashboardFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-35px);
+  }
 }
 
 .dashboard-header {
-  max-width: 1000px;
-  margin: 0 auto 30px;
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 35px;
+}
+
+.dashboard-header h1 {
+  margin-top: 6px;
+  font-size: 30px;
+  color: #25263f;
 }
 
 .dashboard-logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: #4f46e5;
+  padding: 7px 13px;
+  border-radius: 9px;
   color: white;
-  border-radius: 12px;
-  font-weight: bold;
-}
-
-.dashboard-header h1 {
-  margin: 12px 0 5px;
-}
-
-.dashboard-header p {
-  margin: 0;
-  color: #64748b;
+  font-size: 13px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff4f81, #7c4dff);
+  box-shadow: 0 7px 18px rgba(124, 77, 255, 0.22);
 }
 
 .logout-btn {
   border: none;
   padding: 11px 20px;
-  border-radius: 9px;
-  background: #ef4444;
-  color: white;
+  border-radius: 10px;
+  background: white;
+  color: #ef476f;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
+  box-shadow: 0 7px 22px rgba(50, 50, 93, 0.09);
+  transition: 0.25s;
 }
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  background: #fff1f5;
+}
+
+/* =========================================================
+   CREATE EVENT CARD
+   ========================================================= */
 
 .dashboard-card {
-  max-width: 1000px;
-  margin: auto;
-  background: white;
-  padding: 35px;
-  border-radius: 18px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin-bottom: 45px;
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
+  border: 1px solid white;
+  box-shadow: 0 18px 45px rgba(50, 50, 93, 0.08);
+  animation: sectionAppear 0.7s ease;
 }
 
-.dashboard-card h2 {
-  margin-top: 0;
+.dashboard-card h2,
+.events-section > h2 {
+  font-size: 22px;
+  color: #282940;
+  margin-bottom: 8px;
 }
 
 .dashboard-card > p {
-  color: #64748b;
-  margin-bottom: 28px;
+  color: #777995;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.dashboard-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-card label {
+  margin: 10px 0 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4c4d68;
+}
+
+.dashboard-card input {
+  padding: 13px;
+  border: 1px solid #e3e3ef;
+  border-radius: 10px;
+  outline: none;
+  background: #fafaff;
+}
+
+.dashboard-card input:focus {
+  border-color: #7c4dff;
+  box-shadow: 0 0 0 4px rgba(124, 77, 255, 0.08);
 }
 
 .form-row {
-  display: flex;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
 }
 
 .form-row > div {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.dashboard-card .primary-btn {
-  width: 100%;
-}
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
 .events-section {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.events-section h2 {
-  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
 }
 
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 23px;
+  margin-top: 20px;
 }
 
 .event-card {
-  background: white;
+  position: relative;
   padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.91);
+  backdrop-filter: blur(12px);
+  border: 1px solid white;
+  box-shadow: 0 15px 40px rgba(50, 50, 93, 0.08);
+  transition: 0.3s ease;
+  overflow: hidden;
+  animation: eventAppear 0.6s ease both;
+}
+
+.event-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.event-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.event-card:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 48px rgba(75, 61, 150, 0.14);
+}
+
+.event-card::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #ff4f81, #7c4dff, #00bfa6);
+}
+
+@keyframes eventAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .event-icon {
-  font-size: 35px;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff0f6, #efecff);
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .event-card h3 {
-  margin: 15px 0;
+  font-size: 19px;
+  color: #292a43;
+  margin-bottom: 14px;
+}
+
+.event-info {
+  padding: 13px;
+  border-radius: 12px;
+  background: #f8f8ff;
+  margin-bottom: 15px;
 }
 
 .event-info p {
-  color: #64748b;
-  margin: 8px 0;
+  font-size: 13px;
+  color: #666781;
+  margin: 5px 0;
 }
 
 .seats {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f1f5f9;
-  padding: 12px;
-  border-radius: 10px;
-  margin: 20px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeF5;
+}
+
+.seats span {
+  font-size: 13px;
+  color: #74758a;
 }
 
 .seats strong {
-  color: #4f46e5;
-  font-size: 20px;
+  font-size: 16px;
+  color: #7c4dff;
 }
 
-.event-card .primary-btn {
-  width: 100%;
-}
-
-.event-card .primary-btn:disabled {
-  background: #94a3b8;
-  cursor: not-allowed;
-}
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
 
 .empty-events {
-  background: white;
-  padding: 50px;
+  margin-top: 20px;
+  padding: 50px 25px;
   text-align: center;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 15px 40px rgba(50, 50, 93, 0.07);
+}
+
+.empty-events h3 {
+  margin-bottom: 8px;
 }
 
 .empty-events p {
-  color: #64748b;
+  color: #777995;
+}
+
+/* =========================================================
+   STUDENT STATUS
+   ========================================================= */
+
+.status-box {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e8fff3, #effff7);
+  border: 1px solid #bcebd0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.status-box strong {
+  color: #16834e;
+}
+
+.status-box span {
+  font-size: 13px;
+  color: #62647a;
+}
+
+.waitlist-status {
+  background: linear-gradient(135deg, #fff8e5, #fff3d0);
+  border-color: #ffe09a;
+}
+
+.waitlist-status strong {
+  color: #c47a00;
+}
+
+.cancel-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff5b70, #e83d61);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(232, 61, 97, 0.2);
+}
+
+/* =========================================================
+   ADMIN STUDENTS / ATTENDANCE
+   ========================================================= */
+
+.attendees-list {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #eeeeF5;
+}
+
+.attendees-list h4 {
+  font-size: 15px;
+  margin: 15px 0 10px;
+  color: #34354d;
+}
+
+.attendee {
+  padding: 13px;
+  margin-bottom: 9px;
+  border-radius: 12px;
+  background: #f8f8ff;
+  border: 1px solid #eeeeF5;
+  transition: 0.2s;
+}
+
+.attendee:hover {
+  transform: translateX(3px);
+  background: #f3f1ff;
+}
+
+.attendee strong {
+  display: block;
+  color: #373852;
+  font-size: 13px;
+}
+
+.attendee span {
+  display: block;
+  margin-top: 3px;
+  color: #777995;
+  font-size: 12px;
+}
+
+.attendee small {
+  display: block;
+  margin-top: 7px;
+  color: #777995;
+}
+
+.attendance-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.attendance-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00bfa6, #00a88f);
+  color: white;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.attendance-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .dashboard-page {
+    padding: 25px 18px;
+  }
+
+  .dashboard-header {
+    align-items: flex-start;
+  }
+
+  .dashboard-header h1 {
+    font-size: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .dashboard-card {
+    padding: 22px;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+}
+
+@media (max-width: 450px) {
+  .dashboard-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .logout-btn {
+    width: 100%;
+  }
+
+  .auth-card h1 {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   EVENTSPHERE BRANDING
+   ========================================================= */
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+
+  background: linear-gradient(
+    135deg,
+    #ff4f81,
+    #9b51e0,
+    #5b5bea
+  );
+
+  box-shadow:
+    0 10px 25px rgba(124, 77, 255, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+
+  animation: brandFloat 3s ease-in-out infinite;
+}
+
+.brand-text strong {
+  display: block;
+
+  font-size: 21px;
+  line-height: 1.1;
+  font-weight: 800;
+
+  background: linear-gradient(
+    90deg,
+    #ff4f81,
+    #9b51e0,
+    #635bff
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #777995;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+}
+
+@keyframes brandFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
+}
+
+.attendance-btn.absent-btn {
+  background: linear-gradient(
+    135deg,
+    #ff5f6d,
+    #e83e63
+  );
+}
+
+.waitlisted-attendee {
+  border-left: 3px solid #ffb300;
+}
+/* =========================================================
+   EVENTSPHERE AUTH BRANDING
+   ========================================================= */
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin-bottom: 24px;
+}
+
+.auth-brand-icon {
+  width: 62px;
+  height: 62px;
+  border-radius: 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 29px;
+
+  background: linear-gradient(
+    135deg,
+    #ff4f81,
+    #9b51e0,
+    #635bff
+  );
+
+  box-shadow:
+    0 12px 28px rgba(124, 77, 255, 0.28),
+    inset 0 1px 2px rgba(255, 255, 255, 0.55);
+
+  animation: authBrandFloat 3s ease-in-out infinite;
+}
+
+.auth-brand-text strong {
+  display: block;
+
+  font-size: 26px;
+  line-height: 1.1;
+  font-weight: 800;
+
+  background: linear-gradient(
+    90deg,
+    #ff4f81,
+    #9b51e0,
+    #635bff
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-brand-text span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #777995;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
+}
+
+@keyframes authBrandFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(-2deg);
+  }
 }

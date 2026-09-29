@@ -16,7 +16,6 @@ function AdminDashboard() {
     try {
       const response = await fetch("http://localhost:5000/api/events");
       const data = await response.json();
-
       setEvents(data);
     } catch (error) {
       alert("Unable to load events");
@@ -80,7 +79,34 @@ function AdminDashboard() {
 
       setSelectedEvent(eventId);
     } catch (error) {
-      alert("Unable to load attendees");
+      alert("Unable to load students");
+    }
+  };
+
+  const markAttendance = async (registrationId, attendance) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/registrations/${registrationId}/attendance`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            attendance,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      alert(data.message);
+
+      if (response.ok && selectedEvent) {
+        viewAttendees(selectedEvent);
+      }
+    } catch (error) {
+      alert("Unable to update attendance");
     }
   };
 
@@ -88,7 +114,15 @@ function AdminDashboard() {
     <div className="dashboard-page">
       <div className="dashboard-header">
         <div>
-          <div className="dashboard-logo">EMS</div>
+          <div className="brand-logo">
+            <div className="brand-icon">🎓</div>
+
+            <div className="brand-text">
+              <strong>EventSphere</strong>
+              <small>College Event Management</small>
+            </div>
+          </div>
+
           <h1>Admin Dashboard</h1>
         </div>
 
@@ -109,6 +143,7 @@ function AdminDashboard() {
 
         <form onSubmit={handleSubmit}>
           <label>Event Name</label>
+
           <input
             type="text"
             name="name"
@@ -121,6 +156,7 @@ function AdminDashboard() {
           <div className="form-row">
             <div>
               <label>Date</label>
+
               <input
                 type="date"
                 name="date"
@@ -132,6 +168,7 @@ function AdminDashboard() {
 
             <div>
               <label>Time</label>
+
               <input
                 type="time"
                 name="time"
@@ -143,6 +180,7 @@ function AdminDashboard() {
           </div>
 
           <label>Maximum Seats</label>
+
           <input
             type="number"
             name="maxSeats"
@@ -173,6 +211,18 @@ function AdminDashboard() {
               const remainingSeats =
                 event.maxSeats - event.registeredSeats;
 
+              const eventAttendees = attendees[event._id] || [];
+
+              const registeredStudents = eventAttendees.filter(
+                (registration) =>
+                  registration.status === "registered"
+              );
+
+              const waitlistedStudents = eventAttendees.filter(
+                (registration) =>
+                  registration.status === "waitlisted"
+              );
+
               return (
                 <div className="event-card" key={event._id}>
                   <div className="event-icon">🎓</div>
@@ -194,37 +244,97 @@ function AdminDashboard() {
                     <strong>{remainingSeats}</strong>
                   </div>
 
+                  <div className="seats">
+                    <span>Waitlisted</span>
+                    <strong>{waitlistedStudents.length}</strong>
+                  </div>
+
                   <button
                     className="primary-btn"
                     onClick={() => viewAttendees(event._id)}
                   >
-                    View Attendees
+                    View Students
                   </button>
 
-                  {selectedEvent === event._id &&
-                    attendees[event._id] && (
-                      <div className="attendees-list">
-                        <h4>Attendees</h4>
+                  {selectedEvent === event._id && (
+                    <div className="attendees-list">
+                      <h4>Registered Students</h4>
 
-                        {attendees[event._id].length === 0 ? (
-                          <p>No students registered yet.</p>
-                        ) : (
-                          attendees[event._id].map((registration) => (
-                            <div
-                              className="attendee"
-                              key={registration._id}
-                            >
-                              <strong>
-                                {registration.studentId?.name}
-                              </strong>
-                              <span>
-                                {registration.studentId?.email}
-                              </span>
+                      {registeredStudents.length === 0 ? (
+                        <p>No registered students.</p>
+                      ) : (
+                        registeredStudents.map((registration) => (
+                          <div
+                            className="attendee"
+                            key={registration._id}
+                          >
+                            <strong>
+                              {registration.studentId?.name}
+                            </strong>
+
+                            <span>
+                              {registration.studentId?.email}
+                            </span>
+
+                            <div className="attendance-controls">
+                              <button
+                                className="attendance-btn"
+                                onClick={() =>
+                                  markAttendance(
+                                    registration._id,
+                                    "Attended"
+                                  )
+                                }
+                              >
+                                ✓ Attended
+                              </button>
+
+                              <button
+                                className="attendance-btn absent-btn"
+                                onClick={() =>
+                                  markAttendance(
+                                    registration._id,
+                                    "Absent"
+                                  )
+                                }
+                              >
+                                ✕ Absent
+                              </button>
                             </div>
-                          ))
-                        )}
-                      </div>
-                    )}
+
+                            <small>
+                              Attendance:{" "}
+                              {registration.attendance}
+                            </small>
+                          </div>
+                        ))
+                      )}
+
+                      <h4>Waiting List</h4>
+
+                      {waitlistedStudents.length === 0 ? (
+                        <p>No students on the waiting list.</p>
+                      ) : (
+                        waitlistedStudents.map((registration) => (
+                          <div
+                            className="attendee waitlisted-attendee"
+                            key={registration._id}
+                          >
+                            <strong>
+                              #{registration.waitlistPosition}{" "}
+                              {registration.studentId?.name}
+                            </strong>
+
+                            <span>
+                              {registration.studentId?.email}
+                            </span>
+
+                            <small>⏳ Waiting List</small>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}

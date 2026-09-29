@@ -13,6 +13,24 @@ const registrationSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
+    status: {
+      type: String,
+      enum: ["registered", "waitlisted", "cancelled"],
+      required: true,
+      default: "registered",
+    },
+
+    attendance: {
+      type: String,
+      enum: ["Pending", "Attended", "Absent"],
+      default: "Pending",
+    },
+
+    waitlistPosition: {
+      type: Number,
+      default: null,
+    },
   },
   {
     timestamps: true,

@@ -45,31 +45,45 @@ function Register() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="logo">EMS</div>
 
-        <h1>Create Account</h1>
+        {/* EventSphere Branding */}
+        <div className="auth-brand">
+          <div className="auth-brand-icon">🎓</div>
+
+          <div className="auth-brand-text">
+            <strong>EventSphere</strong>
+            <span>College Event Management</span>
+          </div>
+        </div>
+
+        <h1>Create Your Account ✨</h1>
 
         <p className="subtitle">
-          Join the College Event Management System
+          Join your college's event community.
         </p>
 
         <div className="welcome">
-          <h2>Register 👋</h2>
-          <p>Create your account to manage or join college events.</p>
+          <h2>Welcome to EventSphere!</h2>
+          <p>
+            Create your account to discover, register and
+            participate in college events.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <label>Full Name</label>
+
           <input
             type="text"
             name="name"
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
             required
           />
 
           <label>Email Address</label>
+
           <input
             type="email"
             name="email"
@@ -80,6 +94,7 @@ function Register() {
           />
 
           <label>Password</label>
+
           <input
             type="password"
             name="password"
@@ -90,6 +105,7 @@ function Register() {
           />
 
           <label>Register As</label>
+
           <select
             name="role"
             value={formData.role}
@@ -100,7 +116,7 @@ function Register() {
           </select>
 
           <button type="submit" className="primary-btn">
-            Create Account
+            Create EventSphere Account →
           </button>
         </form>
 
